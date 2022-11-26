@@ -1,0 +1,23 @@
+{
+    "name": "afca/embed-video-player",
+    "description": "Plugin for video embed",
+	"homepage": "https://github.com/AndreFCAmorim/afca-video-embed",
+    "type": "wordpress-plugin",
+	"config": {
+		"optimize-autoloader": true
+	},
+    "autoload": {
+        "psr-4": {
+            "Afca\\EmbedVideoPlayer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "André Amorim",
+            "email": "andrefcamorim@gmail.com",
+			"homepage": "https://andreamorim.site",
+			"role": "Developer"
+        }
+    ],
+    "require": {}
+}
