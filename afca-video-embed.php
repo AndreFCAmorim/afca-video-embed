@@ -28,7 +28,16 @@ function admin_style() {
 	wp_enqueue_style( 'admin-style', plugin_dir_url( __FILE__ ) . 'assets/css/admin.css', [], AFCA_VE_PLUGIN_VERSION );
 }
 
+/*
+ * Register Post Types
+ */
 use Afca\EmbedVideoPlayer\PostType;
 $post_type_class = new PostType();
 add_action( 'init', [ $post_type_class, 'cptui_register_my_cpts_afca_video_embed' ] );
 add_action( 'init', [ $post_type_class, 'cptui_register_my_taxes_afca_video_type' ] );
+
+/*
+ * Register ACF Meta fields
+ */
+$post_type_class->acf_meta_fields();
+
