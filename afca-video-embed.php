@@ -22,6 +22,12 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 define( 'AFCA_VE_PLUGIN_VERSION', 1 );
 define( 'AFCA_VE_PLUGIN_FOLDER', 'afca-video-embed' );
 
+//Enqueue Admin Style
+add_action( 'admin_enqueue_scripts', 'admin_style' );
+function admin_style() {
+	wp_enqueue_style( 'admin-style', plugin_dir_url( __FILE__ ) . 'assets/css/admin.css', [], AFCA_VE_PLUGIN_VERSION );
+}
+
 use Afca\EmbedVideoPlayer\PostType;
 $post_type_class = new PostType();
 add_action( 'init', [ $post_type_class, 'cptui_register_my_cpts_afca_video_embed' ] );
