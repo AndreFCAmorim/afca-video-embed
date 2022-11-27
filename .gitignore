@@ -2,4 +2,7 @@
 .vscode
 
 #Vendor
-/vendor/
+vendor
+
+#NodeModules
+node_modules
