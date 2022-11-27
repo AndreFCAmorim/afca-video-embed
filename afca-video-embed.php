@@ -18,6 +18,10 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
 
+//Constants
+define( 'AFCA_VE_PLUGIN_VERSION', 1 );
+define( 'AFCA_VE_PLUGIN_FOLDER', 'afca-video-embed' );
+
 use Afca\EmbedVideoPlayer\PostType;
 $post_type_class = new PostType();
 add_action( 'init', [ $post_type_class, 'cptui_register_my_cpts_afca_video_embed' ] );
