@@ -361,7 +361,7 @@ class PostType {
 						'aria-label'        => '',
 						'type'              => 'url',
 						'instructions'      => 'Currently, we are supporting video links from YouTube and Vimeo.',
-						'required'          => 0,
+						'required'          => 1,
 						'conditional_logic' => 0,
 						'wrapper'           => [
 							'width' => '',
