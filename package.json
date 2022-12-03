@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "videojs": "^1.0.0"
+    "video.js": "^7.20.3"
   }
 }
