@@ -21,6 +21,8 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 //Constants
 define( 'AFCA_VE_PLUGIN_VERSION', 1 );
 define( 'AFCA_VE_PLUGIN_FOLDER', 'afca-video-embed' );
+define( 'AFCA_VE_PLUGIN_POST_TYPE', 'afca-video-embed' );
+define( 'AFCA_VE_PLUGIN_SHORTCODE', 'show-embed-video' );
 
 //Enqueue Admin Style
 add_action( 'admin_enqueue_scripts', 'admin_style' );
@@ -40,4 +42,11 @@ add_action( 'init', [ $post_type_class, 'cptui_register_my_taxes_afca_video_type
  * Register ACF Meta fields
  */
 $post_type_class->acf_meta_fields();
+
+/*
+ * Generate a shortcode on save post
+ */
+use Afca\EmbedVideoPlayer\ShortcodeGenerator;
+$shortcode_class = new ShortcodeGenerator();
+add_action( 'save_post_' . AFCA_VE_PLUGIN_POST_TYPE, [ $shortcode_class, 'generator' ], 10, 1 );
 
