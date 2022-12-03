@@ -163,325 +163,458 @@ class PostType {
 		if ( function_exists( 'acf_add_local_field_group' ) ) :
 
 			//Statistics
-			acf_add_local_field_group(
-				[
-					'key'                   => 'group_63825f8b17397',
-					'title'                 => 'Statistics',
-					'fields'                => [
-						[
-							'key'               => 'field_638263080b691',
-							'label'             => 'Hints',
-							'name'              => 'statistics_group',
-							'aria-label'        => '',
-							'type'              => 'group',
-							'instructions'      => '',
-							'required'          => 0,
-							'conditional_logic' => 0,
-							'wrapper'           => [
-								'width' => '',
-								'class' => '',
-								'id'    => '',
-							],
-							'layout'            => 'table',
-							'sub_fields'        => [
-								[
-									'key'               => 'field_638262863127d',
-									'label'             => 'Impressions',
-									'name'              => 'impressions',
-									'aria-label'        => '',
-									'type'              => 'number',
-									'instructions'      => '',
-									'required'          => 0,
-									'conditional_logic' => 0,
-									'wrapper'           => [
-										'width' => '',
-										'class' => '',
-										'id'    => '',
-									],
-									'default_value'     => '',
-									'min'               => '',
-									'max'               => '',
-									'placeholder'       => '',
-									'step'              => '',
-									'prepend'           => '',
-									'append'            => '',
-									'readonly'          => 1,
-								],
-								[
-									'key'               => 'field_6382628f3127e',
-									'label'             => 'Clicks',
-									'name'              => 'clicks',
-									'aria-label'        => '',
-									'type'              => 'number',
-									'instructions'      => '',
-									'required'          => 0,
-									'conditional_logic' => 0,
-									'wrapper'           => [
-										'width' => '',
-										'class' => '',
-										'id'    => '',
-									],
-									'default_value'     => '',
-									'min'               => '',
-									'max'               => '',
-									'placeholder'       => '',
-									'step'              => '',
-									'prepend'           => '',
-									'append'            => '',
-									'readonly'          => 1,
-								],
-							],
-						],
-					],
-					'location'              => [
-						[
-							[
-								'param'    => 'post_type',
-								'operator' => '==',
-								'value'    => 'afca-video-embed',
-							],
-						],
-					],
-					'menu_order'            => 0,
-					'position'              => 'side',
-					'style'                 => 'default',
-					'label_placement'       => 'top',
-					'instruction_placement' => 'label',
-					'hide_on_screen'        => '',
-					'active'                => true,
-					'description'           => '',
-					'show_in_rest'          => 1,
-				]
-			);
+			$this->acf_statistics();
 
 			//Thumbnail
-			acf_add_local_field_group(
-				[
-					'key'                   => 'group_63825d55a8ce7',
-					'title'                 => 'Thumbnail',
-					'fields'                => [
-						[
-							'key'               => 'field_63825d560413e',
-							'label'             => 'Featured Image',
-							'name'              => 'featured_image',
-							'aria-label'        => '',
-							'type'              => 'image',
-							'instructions'      => '',
-							'required'          => 0,
-							'conditional_logic' => 0,
-							'wrapper'           => [
-								'width' => '',
-								'class' => '',
-								'id'    => '',
-							],
-							'return_format'     => 'array',
-							'library'           => 'all',
-							'min_width'         => '',
-							'min_height'        => '',
-							'min_size'          => '',
-							'max_width'         => '',
-							'max_height'        => '',
-							'max_size'          => '',
-							'mime_types'        => '',
-							'preview_size'      => 'medium',
-						],
-					],
-					'location'              => [
-						[
-							[
-								'param'    => 'post_type',
-								'operator' => '==',
-								'value'    => 'afca-video-embed',
-							],
-						],
-					],
-					'menu_order'            => 0,
-					'position'              => 'side',
-					'style'                 => 'default',
-					'label_placement'       => 'top',
-					'instruction_placement' => 'label',
-					'hide_on_screen'        => '',
-					'active'                => true,
-					'description'           => '',
-					'show_in_rest'          => 1,
-				]
-			);
+			$this->acf_thumbnail();
 
 			//Video
-			acf_add_local_field_group(
-				[
-					'key'                   => 'group_63825ae516486',
-					'title'                 => 'Video',
-					'fields'                => [
-						[
-							'key'               => 'field_63825ae66a67f',
-							'label'             => 'Link',
-							'name'              => 'video_link',
-							'aria-label'        => '',
-							'type'              => 'url',
-							'instructions'      => 'Currently, we are supporting video links from YouTube and Vimeo.',
-							'required'          => 0,
-							'conditional_logic' => 0,
-							'wrapper'           => [
-								'width' => '',
-								'class' => '',
-								'id'    => '',
-							],
-							'default_value'     => '',
-							'placeholder'       => '',
-						],
-					],
-					'location'              => [
-						[
-							[
-								'param'    => 'post_type',
-								'operator' => '==',
-								'value'    => 'afca-video-embed',
-							],
-						],
-					],
-					'menu_order'            => 0,
-					'position'              => 'normal',
-					'style'                 => 'default',
-					'label_placement'       => 'top',
-					'instruction_placement' => 'label',
-					'hide_on_screen'        => '',
-					'active'                => true,
-					'description'           => '',
-					'show_in_rest'          => 1,
-				]
-			);
+			$this->acf_video();
 
 			//Configurations
-			acf_add_local_field_group(
-				[
-					'key'                   => 'group_63825bac0de3f',
-					'title'                 => 'Configurations',
-					'fields'                => [
-						[
-							'key'               => 'field_63825bace97fc',
-							'label'             => 'Appearance',
-							'name'              => 'appearance_group',
-							'aria-label'        => '',
-							'type'              => 'group',
-							'instructions'      => '',
-							'required'          => 0,
-							'conditional_logic' => 0,
-							'wrapper'           => [
-								'width' => '',
-								'class' => '',
-								'id'    => '',
-							],
-							'layout'            => 'table',
-							'sub_fields'        => [
-								[
-									'key'               => 'field_63825bd9e97fd',
-									'label'             => 'Primary Color',
-									'name'              => 'primary_color',
-									'aria-label'        => '',
-									'type'              => 'color_picker',
-									'instructions'      => '',
-									'required'          => 0,
-									'conditional_logic' => 0,
-									'wrapper'           => [
-										'width' => '',
-										'class' => '',
-										'id'    => '',
-									],
-									'default_value'     => '#1BAE70',
-									'enable_opacity'    => 0,
-									'return_format'     => 'string',
-								],
-								[
-									'key'               => 'field_63825c3fe97fe',
-									'label'             => 'Second Color',
-									'name'              => 'second_color',
-									'aria-label'        => '',
-									'type'              => 'color_picker',
-									'instructions'      => '',
-									'required'          => 0,
-									'conditional_logic' => 0,
-									'wrapper'           => [
-										'width' => '',
-										'class' => '',
-										'id'    => '',
-									],
-									'default_value'     => '#06752E',
-									'enable_opacity'    => 0,
-									'return_format'     => 'string',
-								],
-							],
-						],
-						[
-							'key'               => 'field_63825c57e97ff',
-							'label'             => 'Controls',
-							'name'              => 'controls_group',
-							'aria-label'        => '',
-							'type'              => 'group',
-							'instructions'      => '',
-							'required'          => 0,
-							'conditional_logic' => 0,
-							'wrapper'           => [
-								'width' => '',
-								'class' => '',
-								'id'    => '',
-							],
-							'layout'            => 'block',
-							'sub_fields'        => [
-								[
-									'key'               => 'field_63825e81b76c8',
-									'label'             => 'Select the controls you want to activate',
-									'name'              => 'controls',
-									'aria-label'        => '',
-									'type'              => 'checkbox',
-									'instructions'      => '',
-									'required'          => 0,
-									'conditional_logic' => 0,
-									'wrapper'           => [
-										'width' => '',
-										'class' => '',
-										'id'    => '',
-									],
-									'choices'           => [
-										'big_play_button' => 'Big Play Button',
-										'play_pause'      => 'Play/Pause',
-										'volume_mute'     => 'Volume/Mute',
-										'current_time_total' => 'Current Time / Total Video Time',
-										'fullscreen'      => 'Fullscreen',
-										'progress_bar'    => 'Progress Bar',
-									],
-									'default_value'     => [],
-									'return_format'     => 'value',
-									'allow_custom'      => 0,
-									'layout'            => 'vertical',
-									'toggle'            => 0,
-									'save_custom'       => 0,
-								],
-							],
-						],
-					],
-					'location'              => [
-						[
-							[
-								'param'    => 'post_type',
-								'operator' => '==',
-								'value'    => 'afca-video-embed',
-							],
-						],
-					],
-					'menu_order'            => 1,
-					'position'              => 'normal',
-					'style'                 => 'default',
-					'label_placement'       => 'top',
-					'instruction_placement' => 'label',
-					'hide_on_screen'        => '',
-					'active'                => true,
-					'description'           => '',
-					'show_in_rest'          => 1,
-				]
-			);
+			$this->acf_configurations();
+
+			//Shortcode
+			$this->acf_shortcode();
+
+			//Custom admin columns
+			$this->custom_admin_columns();
 
 			endif;
+	}
+
+	/**
+	 * ACF Statistics
+	 * This loads the metabox related to the statistics.
+	 *
+	 * @return void
+	 */
+	private function acf_statistics() {
+		acf_add_local_field_group(
+			[
+				'key'                   => 'group_63825f8b17397',
+				'title'                 => 'Statistics',
+				'fields'                => [
+					[
+						'key'               => 'field_638263080b691',
+						'label'             => 'Hints',
+						'name'              => 'statistics_group',
+						'aria-label'        => '',
+						'type'              => 'group',
+						'instructions'      => '',
+						'required'          => 0,
+						'conditional_logic' => 0,
+						'wrapper'           => [
+							'width' => '',
+							'class' => '',
+							'id'    => '',
+						],
+						'layout'            => 'table',
+						'sub_fields'        => [
+							[
+								'key'               => 'field_638262863127d',
+								'label'             => 'Impressions',
+								'name'              => 'impressions',
+								'aria-label'        => '',
+								'type'              => 'number',
+								'instructions'      => '',
+								'required'          => 0,
+								'conditional_logic' => 0,
+								'wrapper'           => [
+									'width' => '',
+									'class' => '',
+									'id'    => '',
+								],
+								'default_value'     => '',
+								'min'               => '',
+								'max'               => '',
+								'placeholder'       => '',
+								'step'              => '',
+								'prepend'           => '',
+								'append'            => '',
+								'readonly'          => 1,
+							],
+							[
+								'key'               => 'field_6382628f3127e',
+								'label'             => 'Clicks',
+								'name'              => 'clicks',
+								'aria-label'        => '',
+								'type'              => 'number',
+								'instructions'      => '',
+								'required'          => 0,
+								'conditional_logic' => 0,
+								'wrapper'           => [
+									'width' => '',
+									'class' => '',
+									'id'    => '',
+								],
+								'default_value'     => '',
+								'min'               => '',
+								'max'               => '',
+								'placeholder'       => '',
+								'step'              => '',
+								'prepend'           => '',
+								'append'            => '',
+								'readonly'          => 1,
+							],
+						],
+					],
+				],
+				'location'              => [
+					[
+						[
+							'param'    => 'post_type',
+							'operator' => '==',
+							'value'    => 'afca-video-embed',
+						],
+					],
+				],
+				'menu_order'            => 1,
+				'position'              => 'side',
+				'style'                 => 'default',
+				'label_placement'       => 'top',
+				'instruction_placement' => 'label',
+				'hide_on_screen'        => '',
+				'active'                => true,
+				'description'           => '',
+				'show_in_rest'          => 0,
+			]
+		);
+	}
+
+	/**
+	 * ACF Thumbnail
+	 * This loads the metabox related to the thumbnail.
+	 *
+	 * @return void
+	 */
+	private function acf_thumbnail() {
+		acf_add_local_field_group(
+			[
+				'key'                   => 'group_63825d55a8ce7',
+				'title'                 => 'Thumbnail',
+				'fields'                => [
+					[
+						'key'               => 'field_63825d560413e',
+						'label'             => 'Featured Image',
+						'name'              => 'featured_image',
+						'aria-label'        => '',
+						'type'              => 'image',
+						'instructions'      => '',
+						'required'          => 0,
+						'conditional_logic' => 0,
+						'wrapper'           => [
+							'width' => '',
+							'class' => '',
+							'id'    => '',
+						],
+						'return_format'     => 'array',
+						'library'           => 'all',
+						'min_width'         => '',
+						'min_height'        => '',
+						'min_size'          => '',
+						'max_width'         => '',
+						'max_height'        => '',
+						'max_size'          => '',
+						'mime_types'        => '',
+						'preview_size'      => 'medium',
+					],
+				],
+				'location'              => [
+					[
+						[
+							'param'    => 'post_type',
+							'operator' => '==',
+							'value'    => 'afca-video-embed',
+						],
+					],
+				],
+				'menu_order'            => 2,
+				'position'              => 'side',
+				'style'                 => 'default',
+				'label_placement'       => 'top',
+				'instruction_placement' => 'label',
+				'hide_on_screen'        => '',
+				'active'                => true,
+				'description'           => '',
+				'show_in_rest'          => 1,
+			]
+		);
+	}
+
+	/**
+	 * ACF Video
+	 * This loads the metabox related to the video link.
+	 *
+	 * @return void
+	 */
+	private function acf_video() {
+		acf_add_local_field_group(
+			[
+				'key'                   => 'group_63825ae516486',
+				'title'                 => 'Video',
+				'fields'                => [
+					[
+						'key'               => 'field_63825ae66a67f',
+						'label'             => 'Link',
+						'name'              => 'video_link',
+						'aria-label'        => '',
+						'type'              => 'url',
+						'instructions'      => 'Currently, we are supporting video links from YouTube and Vimeo.',
+						'required'          => 0,
+						'conditional_logic' => 0,
+						'wrapper'           => [
+							'width' => '',
+							'class' => '',
+							'id'    => '',
+						],
+						'default_value'     => '',
+						'placeholder'       => '',
+					],
+				],
+				'location'              => [
+					[
+						[
+							'param'    => 'post_type',
+							'operator' => '==',
+							'value'    => 'afca-video-embed',
+						],
+					],
+				],
+				'menu_order'            => 0,
+				'position'              => 'normal',
+				'style'                 => 'default',
+				'label_placement'       => 'top',
+				'instruction_placement' => 'label',
+				'hide_on_screen'        => '',
+				'active'                => true,
+				'description'           => '',
+				'show_in_rest'          => 1,
+			]
+		);
+	}
+
+	/**
+	 * ACF Configurations
+	 * This loads the metabox related to the configurations.
+	 *
+	 * @return void
+	 */
+	private function acf_configurations() {
+		acf_add_local_field_group(
+			[
+				'key'                   => 'group_63825bac0de3f',
+				'title'                 => 'Configurations',
+				'fields'                => [
+					[
+						'key'               => 'field_63825bace97fc',
+						'label'             => 'Appearance',
+						'name'              => 'appearance_group',
+						'aria-label'        => '',
+						'type'              => 'group',
+						'instructions'      => '',
+						'required'          => 0,
+						'conditional_logic' => 0,
+						'wrapper'           => [
+							'width' => '',
+							'class' => '',
+							'id'    => '',
+						],
+						'layout'            => 'table',
+						'sub_fields'        => [
+							[
+								'key'               => 'field_63825bd9e97fd',
+								'label'             => 'Primary Color',
+								'name'              => 'primary_color',
+								'aria-label'        => '',
+								'type'              => 'color_picker',
+								'instructions'      => '',
+								'required'          => 0,
+								'conditional_logic' => 0,
+								'wrapper'           => [
+									'width' => '',
+									'class' => '',
+									'id'    => '',
+								],
+								'default_value'     => '#1BAE70',
+								'enable_opacity'    => 0,
+								'return_format'     => 'string',
+							],
+							[
+								'key'               => 'field_63825c3fe97fe',
+								'label'             => 'Second Color',
+								'name'              => 'second_color',
+								'aria-label'        => '',
+								'type'              => 'color_picker',
+								'instructions'      => '',
+								'required'          => 0,
+								'conditional_logic' => 0,
+								'wrapper'           => [
+									'width' => '',
+									'class' => '',
+									'id'    => '',
+								],
+								'default_value'     => '#06752E',
+								'enable_opacity'    => 0,
+								'return_format'     => 'string',
+							],
+						],
+					],
+					[
+						'key'               => 'field_63825c57e97ff',
+						'label'             => 'Controls',
+						'name'              => 'controls_group',
+						'aria-label'        => '',
+						'type'              => 'group',
+						'instructions'      => '',
+						'required'          => 0,
+						'conditional_logic' => 0,
+						'wrapper'           => [
+							'width' => '',
+							'class' => '',
+							'id'    => '',
+						],
+						'layout'            => 'block',
+						'sub_fields'        => [
+							[
+								'key'               => 'field_63825e81b76c8',
+								'label'             => 'Select the controls you want to activate',
+								'name'              => 'controls',
+								'aria-label'        => '',
+								'type'              => 'checkbox',
+								'instructions'      => '',
+								'required'          => 0,
+								'conditional_logic' => 0,
+								'wrapper'           => [
+									'width' => '',
+									'class' => '',
+									'id'    => '',
+								],
+								'choices'           => [
+									'big_play_button'    => 'Big Play Button',
+									'play_pause'         => 'Play/Pause',
+									'volume_mute'        => 'Volume/Mute',
+									'current_time_total' => 'Current Time / Total Video Time',
+									'fullscreen'         => 'Fullscreen',
+									'progress_bar'       => 'Progress Bar',
+								],
+								'default_value'     => [],
+								'return_format'     => 'value',
+								'allow_custom'      => 0,
+								'layout'            => 'vertical',
+								'toggle'            => 0,
+								'save_custom'       => 0,
+							],
+						],
+					],
+				],
+				'location'              => [
+					[
+						[
+							'param'    => 'post_type',
+							'operator' => '==',
+							'value'    => 'afca-video-embed',
+						],
+					],
+				],
+				'menu_order'            => 1,
+				'position'              => 'normal',
+				'style'                 => 'default',
+				'label_placement'       => 'top',
+				'instruction_placement' => 'label',
+				'hide_on_screen'        => '',
+				'active'                => true,
+				'description'           => '',
+				'show_in_rest'          => 1,
+			]
+		);
+	}
+
+	/**
+	 * ACF Shortcode
+	 * This loads the metabox related to the shortcode.
+	 *
+	 * @return void
+	 */
+	private function acf_shortcode() {
+		acf_add_local_field_group(
+			[
+				'key'                   => 'group_6383b7a80b229',
+				'title'                 => 'Shortcode',
+				'fields'                => [
+					[
+						'key'               => 'field_6383b7a82e586',
+						'label'             => 'Shortcode',
+						'name'              => 'shortcode',
+						'aria-label'        => '',
+						'type'              => 'text',
+						'instructions'      => 'Copy the code below and paste it where you want to show the video.',
+						'required'          => 0,
+						'conditional_logic' => 0,
+						'wrapper'           => [
+							'width' => '',
+							'class' => '',
+							'id'    => '',
+						],
+						'default_value'     => '',
+						'maxlength'         => '',
+						'placeholder'       => '',
+						'prepend'           => '',
+						'append'            => '',
+						'readonly'          => 1,
+					],
+				],
+				'location'              => [
+					[
+						[
+							'param'    => 'post_type',
+							'operator' => '==',
+							'value'    => 'afca-video-embed',
+						],
+					],
+				],
+				'menu_order'            => 0,
+				'position'              => 'side',
+				'style'                 => 'default',
+				'label_placement'       => 'top',
+				'instruction_placement' => 'label',
+				'hide_on_screen'        => '',
+				'active'                => true,
+				'description'           => '',
+				'show_in_rest'          => 0,
+			]
+		);
+	}
+
+	/**
+	 * Custom admin columns
+	 * This method will load the admin columns of the custom post type
+	 *
+	 * @return void
+	 */
+	private function custom_admin_columns() {
+		add_filter(
+			'manage_afca-video-embed_posts_columns',
+			function( $columns ) {
+				return array_merge( $columns, [ 'shortcode' => __( 'Shortcode', 'afca-embed-video-player' ) ] );
+			}
+		);
+
+		add_action(
+			'manage_afca-video-embed_posts_custom_column',
+			function( $column_key, $post_id ) {
+				if ( $column_key == 'shortcode' ) {
+					$video_link = get_field( 'shortcode', $post_id );
+					if ( $video_link ) {
+						echo esc_html( $video_link );
+					} else {
+						echo '-';
+					}
+				}
+			},
+			10,
+			2
+		);
 	}
 
 }
