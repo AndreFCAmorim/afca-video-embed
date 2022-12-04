@@ -152,15 +152,24 @@ class PostType {
 			}
 		);
 
-		// (Optional) Hide the ACF admin menu item.
-		add_filter(
-			'acf/settings/show_admin',
-			function() {
-				return false;
-			}
-		);
+		//If function does not exists, add wp plugin lib
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
 
-		if ( function_exists( 'acf_add_local_field_group' ) ) :
+		// Check if ACF Plugin is installed and active
+		if ( ! is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
+			//If not:
+			// (Optional) Hide the ACF admin menu item.
+			add_filter(
+				'acf/settings/show_admin',
+				function() {
+					return false;
+				}
+			);
+		}
+
+		if ( function_exists( 'acf_add_local_field_group' ) ) {
 
 			//Statistics
 			$this->acf_statistics();
@@ -180,7 +189,7 @@ class PostType {
 			//Custom admin columns
 			$this->custom_admin_columns();
 
-			endif;
+		}
 	}
 
 	/**
