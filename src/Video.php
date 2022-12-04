@@ -2,6 +2,11 @@
 namespace Afca\EmbedVideoPlayer;
 
 class Video {
+	private $helper;
+
+	public function __construct() {
+		$this->helper = new Helper();
+	}
 
 	public function register_shortcode() {
 		//Shortcode string
@@ -24,12 +29,12 @@ class Video {
 					'id'    => $post_ID,
 					'link'  => get_field( 'video_link', $post_ID ),
 					'color' => [
-						'primary'   => $this->get_group_field( 'appearance_group', 'primary_color', $post_ID ),
-						'secondary' => $this->get_group_field( 'appearance_group', 'second_color', $post_ID ),
+						'primary'   => $this->helper->get_group_field( 'appearance_group', 'primary_color', $post_ID ),
+						'secondary' => $this->helper->get_group_field( 'appearance_group', 'second_color', $post_ID ),
 					],
 					'box'   => [
-						'width'  => $this->get_group_field( 'box_group', 'width', $post_ID ),
-						'height' => $this->get_group_field( 'box_group', 'height', $post_ID ),
+						'width'  => $this->helper->get_group_field( 'box_group', 'width', $post_ID ),
+						'height' => $this->helper->get_group_field( 'box_group', 'height', $post_ID ),
 
 					],
 				];
@@ -85,21 +90,5 @@ class Video {
 			$data['link'],
 			$thumbnail,
 		);
-	}
-
-	/**
-	 * Get field from group on acf
-	 *
-	 * @param string $group Name of the group
-	 * @param string $field Name of the field
-	 * @param int (Optional) $post_id The post Id
-	 * @return meta-content Returns the content of the meta field
-	 */
-	private function get_group_field( string $group, string $field, int $post_id = 0 ) {
-		$group_data = get_field( $group, $post_id );
-		if ( is_array( $group_data ) && array_key_exists( $field, $group_data ) ) {
-			return $group_data[ $field ];
-		}
-		return null;
 	}
 }
