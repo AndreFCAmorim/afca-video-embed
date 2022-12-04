@@ -21,7 +21,7 @@ class Video {
 				$post_ID = $atts['id'];
 
 				$video_data = [
-					'id'       => 'testvideo', //$post_ID
+					'id'    => $post_ID,
 					'link'     => get_field( 'video_link', $post_ID ),
 					'color'    => [
 						'primary'   => $this->get_group_field( 'appearance_group', 'primary_color', $post_ID ),
