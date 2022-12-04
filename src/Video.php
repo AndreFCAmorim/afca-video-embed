@@ -57,13 +57,6 @@ class Video {
 	 * @return Html The video html
 	 */
 	private function render_video( array $data ) {
-		//Working with Youtube:
-		//https://codepen.io/vinukumar-vs/pen/GRgpeqE
-
-		//Skin:
-		//https://codepen.io/VincentGarreau/pen/zLONLe
-		//https://codepen.io/mattimatti/pen/KMPKxK
-
 		$thumbnail = '';
 		if ( isset( $data['thumbnail'] ) ) {
 			//With thumbnail
