@@ -171,9 +171,6 @@ class PostType {
 			//Video
 			$this->acf_video();
 
-			//Video Box
-			$this->acf_box();
-
 			//Configurations
 			$this->acf_configurations();
 
@@ -387,85 +384,6 @@ class PostType {
 						],
 					],
 				],
-				'menu_order'            => 0,
-				'position'              => 'normal',
-				'style'                 => 'default',
-				'label_placement'       => 'top',
-				'instruction_placement' => 'label',
-				'hide_on_screen'        => '',
-				'active'                => true,
-				'description'           => '',
-				'show_in_rest'          => 1,
-			]
-		);
-	}
-
-	/**
-	 * ACF Box
-	 *
-	 * This loads the metabox related to the video box.
-	 * @return void
-	 */
-	private function acf_box() {
-		acf_add_local_field_group(
-			[
-				'key'                   => 'group_638c9450ebb1b',
-				'title'                 => 'Box Size',
-				'fields'                => [
-					[
-						'key'               => 'field_638c9452c786d',
-						'label'             => 'Width',
-						'name'              => 'width',
-						'aria-label'        => '',
-						'type'              => 'number',
-						'instructions'      => '',
-						'required'          => 0,
-						'conditional_logic' => 0,
-						'wrapper'           => [
-							'width' => '',
-							'class' => '',
-							'id'    => '',
-						],
-						'default_value'     => 480,
-						'min'               => '',
-						'max'               => '',
-						'placeholder'       => '',
-						'step'              => '',
-						'prepend'           => '',
-						'append'            => '',
-					],
-					[
-						'key'               => 'field_638c947dc786e',
-						'label'             => 'Height',
-						'name'              => 'height',
-						'aria-label'        => '',
-						'type'              => 'number',
-						'instructions'      => '',
-						'required'          => 0,
-						'conditional_logic' => 0,
-						'wrapper'           => [
-							'width' => '',
-							'class' => '',
-							'id'    => '',
-						],
-						'default_value'     => 380,
-						'min'               => '',
-						'max'               => '',
-						'placeholder'       => '',
-						'step'              => '',
-						'prepend'           => '',
-						'append'            => '',
-					],
-				],
-				'location'              => [
-					[
-						[
-							'param'    => 'post_type',
-							'operator' => '==',
-							'value'    => 'afca-video-embed',
-						],
-					],
-				],
 				'menu_order'            => 1,
 				'position'              => 'normal',
 				'style'                 => 'default',
@@ -522,7 +440,7 @@ class PostType {
 									'class' => '',
 									'id'    => '',
 								],
-								'default_value'     => '#1BAE70',
+								'default_value'     => '',
 								'enable_opacity'    => 0,
 								'return_format'     => 'string',
 							],
@@ -540,9 +458,71 @@ class PostType {
 									'class' => '',
 									'id'    => '',
 								],
-								'default_value'     => '#06752E',
+								'default_value'     => '',
 								'enable_opacity'    => 0,
 								'return_format'     => 'string',
+							],
+						],
+					],
+					[
+						'key'               => 'field_638ca9ee64983',
+						'label'             => 'Video Box Size',
+						'name'              => 'video_box_size',
+						'aria-label'        => '',
+						'type'              => 'group',
+						'instructions'      => '',
+						'required'          => 0,
+						'conditional_logic' => 0,
+						'wrapper'           => [
+							'width' => '',
+							'class' => '',
+							'id'    => '',
+						],
+						'layout'            => 'table',
+						'sub_fields'        => [
+							[
+								'key'               => 'field_638caa0464984',
+								'label'             => 'Width',
+								'name'              => 'width',
+								'aria-label'        => '',
+								'type'              => 'number',
+								'instructions'      => '',
+								'required'          => 0,
+								'conditional_logic' => 0,
+								'wrapper'           => [
+									'width' => '',
+									'class' => '',
+									'id'    => '',
+								],
+								'default_value'     => '',
+								'min'               => '',
+								'max'               => '',
+								'placeholder'       => '',
+								'step'              => '',
+								'prepend'           => '',
+								'append'            => '',
+							],
+							[
+								'key'               => 'field_638caa0e64985',
+								'label'             => 'Height',
+								'name'              => 'height',
+								'aria-label'        => '',
+								'type'              => 'number',
+								'instructions'      => '',
+								'required'          => 0,
+								'conditional_logic' => 0,
+								'wrapper'           => [
+									'width' => '',
+									'class' => '',
+									'id'    => '',
+								],
+								'default_value'     => '',
+								'min'               => '',
+								'max'               => '',
+								'placeholder'       => '',
+								'step'              => '',
+								'prepend'           => '',
+								'append'            => '',
 							],
 						],
 					],
