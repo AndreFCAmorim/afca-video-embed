@@ -476,7 +476,7 @@ class PostType {
 					[
 						'key'               => 'field_638ca9ee64983',
 						'label'             => 'Video Box Size',
-						'name'              => 'video_box_size',
+						'name'              => 'box_group',
 						'aria-label'        => '',
 						'type'              => 'group',
 						'instructions'      => '',
