@@ -24,10 +24,16 @@ define( 'AFCA_VE_PLUGIN_FOLDER', 'afca-video-embed' );
 define( 'AFCA_VE_PLUGIN_POST_TYPE', 'afca-video-embed' );
 define( 'AFCA_VE_PLUGIN_SHORTCODE', 'show-embed-video' );
 
-//Enqueue Admin Style
-add_action( 'admin_enqueue_scripts', 'admin_style' );
-function admin_style() {
-	wp_enqueue_style( 'admin-style', plugin_dir_url( __FILE__ ) . 'assets/css/admin.css', [], AFCA_VE_PLUGIN_VERSION );
+//Enqueue Backend Style
+add_action( 'admin_enqueue_scripts', 'backend_style' );
+function backend_style() {
+	wp_enqueue_style( 'backend-style', plugin_dir_url( __FILE__ ) . 'assets/css/backend.min.css', [], AFCA_VE_PLUGIN_VERSION );
+}
+
+//Enqueue Frontend Style
+add_action( 'wp_enqueue_scripts', 'frontend_style' );
+function frontend_style() {
+	wp_enqueue_style( 'frontend-style', plugin_dir_url( __FILE__ ) . 'assets/css/frontend.min.css', [], AFCA_VE_PLUGIN_VERSION );
 }
 
 /*
