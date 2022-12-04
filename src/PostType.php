@@ -21,8 +21,8 @@ class PostType {
 			'not_found'                => esc_html__( 'No Embed Videos found', 'afca-embed-video-player' ),
 			'not_found_in_trash'       => esc_html__( 'No Embed Videos found in trash', 'afca-embed-video-player' ),
 			'parent'                   => esc_html__( 'Parent Embed Video:', 'afca-embed-video-player' ),
-			'featured_image'           => esc_html__( 'Featured image for this Embed Video', 'afca-embed-video-player' ),
-			'set_featured_image'       => esc_html__( 'Set featured image for this Embed Video', 'afca-embed-video-player' ),
+			'featured_image'           => esc_html__( 'Thumbnail', 'afca-embed-video-player' ),
+			'set_featured_image'       => esc_html__( 'Set thumbnail image', 'afca-embed-video-player' ),
 			'remove_featured_image'    => esc_html__( 'Remove featured image for this Embed Video', 'afca-embed-video-player' ),
 			'use_featured_image'       => esc_html__( 'Use as featured image for this Embed Video', 'afca-embed-video-player' ),
 			'archives'                 => esc_html__( 'Embed Video archives', 'afca-embed-video-player' ),
@@ -67,7 +67,7 @@ class PostType {
 			],
 			'query_var'             => true,
 			'menu_icon'             => 'dashicons-format-video',
-			'supports'              => [ 'title', 'author' ],
+			'supports'              => [ 'title', 'author', 'thumbnail' ],
 			'show_in_graphql'       => false,
 		];
 
@@ -173,9 +173,6 @@ class PostType {
 
 			//Statistics
 			$this->acf_statistics();
-
-			//Thumbnail
-			$this->acf_thumbnail();
 
 			//Video
 			$this->acf_video();
@@ -288,67 +285,6 @@ class PostType {
 				'active'                => true,
 				'description'           => '',
 				'show_in_rest'          => 0,
-			]
-		);
-	}
-
-	/**
-	 * ACF Thumbnail
-	 *
-	 * This loads the metabox related to the thumbnail.
-	 *
-	 * @return void
-	 */
-	private function acf_thumbnail() {
-		acf_add_local_field_group(
-			[
-				'key'                   => 'group_63825d55a8ce7',
-				'title'                 => 'Thumbnail',
-				'fields'                => [
-					[
-						'key'               => 'field_63825d560413e',
-						'label'             => 'Featured Image',
-						'name'              => 'featured_image',
-						'aria-label'        => '',
-						'type'              => 'image',
-						'instructions'      => '',
-						'required'          => 0,
-						'conditional_logic' => 0,
-						'wrapper'           => [
-							'width' => '',
-							'class' => '',
-							'id'    => '',
-						],
-						'return_format'     => 'array',
-						'library'           => 'all',
-						'min_width'         => '',
-						'min_height'        => '',
-						'min_size'          => '',
-						'max_width'         => '',
-						'max_height'        => '',
-						'max_size'          => '',
-						'mime_types'        => '',
-						'preview_size'      => 'medium',
-					],
-				],
-				'location'              => [
-					[
-						[
-							'param'    => 'post_type',
-							'operator' => '==',
-							'value'    => 'afca-video-embed',
-						],
-					],
-				],
-				'menu_order'            => 2,
-				'position'              => 'side',
-				'style'                 => 'default',
-				'label_placement'       => 'top',
-				'instruction_placement' => 'label',
-				'hide_on_screen'        => '',
-				'active'                => true,
-				'description'           => '',
-				'show_in_rest'          => 1,
 			]
 		);
 	}
