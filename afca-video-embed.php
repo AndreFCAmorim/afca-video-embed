@@ -50,3 +50,49 @@ use Afca\EmbedVideoPlayer\ShortcodeGenerator;
 $shortcode_class = new ShortcodeGenerator();
 add_action( 'save_post_' . AFCA_VE_PLUGIN_POST_TYPE, [ $shortcode_class, 'generator' ], 10, 1 );
 
+/*
+ * Check if node modules folder exists
+ */
+use Afca\EmbedVideoPlayer\Video;
+if ( is_dir( plugin_dir_path( __FILE__ ) . '/node_modules/video.js/dist' ) ) {
+	add_action( 'wp_enqueue_scripts', 'register_videojs_scripts' );
+	add_action( 'wp_enqueue_scripts', 'register_videojs_styles' );
+
+	$video_class = new Video();
+	$video_class->register_shortcode();
+}
+
+//Video JS :: Scripts
+function register_videojs_scripts() {
+	//Video.JS
+	wp_register_script(
+		'videojs_script',
+		plugin_dir_url( __FILE__ ) . 'node_modules/video.js/dist/video.min.js',
+		[ 'jquery' ],
+		'7.20.3',
+		true
+	);
+	wp_enqueue_script( 'videojs_script' );
+
+	//VideoJS -> Youtube
+	wp_register_script(
+		'videojs_youtube_script',
+		plugin_dir_url( __FILE__ ) . 'node_modules/videojs-youtube/dist/Youtube.min.js',
+		[ 'jquery' ],
+		'2.6.1',
+		true
+	);
+	wp_enqueue_script( 'videojs_youtube_script' );
+}
+
+//Video JS :: Styles
+function register_videojs_styles() {
+	wp_register_style(
+		'videojs_style',
+		plugin_dir_url( __FILE__ ) . 'node_modules/video.js/dist/video-js.min.css',
+		[],
+		'7.20.3',
+		false
+	);
+	wp_enqueue_style( 'videojs_style' );
+}
