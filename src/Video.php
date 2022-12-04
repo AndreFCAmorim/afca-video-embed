@@ -22,17 +22,16 @@ class Video {
 
 				$video_data = [
 					'id'    => $post_ID,
-					'link'     => get_field( 'video_link', $post_ID ),
-					'color'    => [
+					'link'  => get_field( 'video_link', $post_ID ),
+					'color' => [
 						'primary'   => $this->get_group_field( 'appearance_group', 'primary_color', $post_ID ),
 						'secondary' => $this->get_group_field( 'appearance_group', 'second_color', $post_ID ),
 					],
-					'box'      => [
+					'box'   => [
 						'width'  => $this->get_group_field( 'box_group', 'width', $post_ID ),
 						'height' => $this->get_group_field( 'box_group', 'height', $post_ID ),
 
 					],
-					'controls' => $this->get_group_field( 'controls_group', 'controls', $post_ID ),
 				];
 
 				$thumbnail_id = get_post_thumbnail_id( $post_ID );
