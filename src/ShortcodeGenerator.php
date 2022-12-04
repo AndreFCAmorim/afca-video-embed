@@ -6,7 +6,8 @@ class ShortcodeGenerator {
 	public function generator( $post_ID ) {
 		//Generator - generates a code
 		$generated = sprintf(
-			'[AFCA_VE_PLUGIN_SHORTCODE id=%1$d]',
+			'[%1$s id=%2$d]',
+			AFCA_VE_PLUGIN_SHORTCODE,
 			$post_ID
 		);
 
