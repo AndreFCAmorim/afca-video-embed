@@ -171,6 +171,9 @@ class PostType {
 			//Video
 			$this->acf_video();
 
+			//Video Box
+			$this->acf_box();
+
 			//Configurations
 			$this->acf_configurations();
 
@@ -185,6 +188,7 @@ class PostType {
 
 	/**
 	 * ACF Statistics
+	 *
 	 * This loads the metabox related to the statistics.
 	 *
 	 * @return void
@@ -284,6 +288,7 @@ class PostType {
 
 	/**
 	 * ACF Thumbnail
+	 *
 	 * This loads the metabox related to the thumbnail.
 	 *
 	 * @return void
@@ -344,6 +349,7 @@ class PostType {
 
 	/**
 	 * ACF Video
+	 *
 	 * This loads the metabox related to the video link.
 	 *
 	 * @return void
@@ -395,7 +401,87 @@ class PostType {
 	}
 
 	/**
+	 * ACF Box
+	 *
+	 * This loads the metabox related to the video box.
+	 * @return void
+	 */
+	private function acf_box() {
+		acf_add_local_field_group(
+			[
+				'key'                   => 'group_638c9450ebb1b',
+				'title'                 => 'Box Size',
+				'fields'                => [
+					[
+						'key'               => 'field_638c9452c786d',
+						'label'             => 'Width',
+						'name'              => 'width',
+						'aria-label'        => '',
+						'type'              => 'number',
+						'instructions'      => '',
+						'required'          => 0,
+						'conditional_logic' => 0,
+						'wrapper'           => [
+							'width' => '',
+							'class' => '',
+							'id'    => '',
+						],
+						'default_value'     => 480,
+						'min'               => '',
+						'max'               => '',
+						'placeholder'       => '',
+						'step'              => '',
+						'prepend'           => '',
+						'append'            => '',
+					],
+					[
+						'key'               => 'field_638c947dc786e',
+						'label'             => 'Height',
+						'name'              => 'height',
+						'aria-label'        => '',
+						'type'              => 'number',
+						'instructions'      => '',
+						'required'          => 0,
+						'conditional_logic' => 0,
+						'wrapper'           => [
+							'width' => '',
+							'class' => '',
+							'id'    => '',
+						],
+						'default_value'     => 380,
+						'min'               => '',
+						'max'               => '',
+						'placeholder'       => '',
+						'step'              => '',
+						'prepend'           => '',
+						'append'            => '',
+					],
+				],
+				'location'              => [
+					[
+						[
+							'param'    => 'post_type',
+							'operator' => '==',
+							'value'    => 'afca-video-embed',
+						],
+					],
+				],
+				'menu_order'            => 1,
+				'position'              => 'normal',
+				'style'                 => 'default',
+				'label_placement'       => 'top',
+				'instruction_placement' => 'label',
+				'hide_on_screen'        => '',
+				'active'                => true,
+				'description'           => '',
+				'show_in_rest'          => 1,
+			]
+		);
+	}
+
+	/**
 	 * ACF Configurations
+	 *
 	 * This loads the metabox related to the configurations.
 	 *
 	 * @return void
@@ -517,7 +603,7 @@ class PostType {
 						],
 					],
 				],
-				'menu_order'            => 1,
+				'menu_order'            => 2,
 				'position'              => 'normal',
 				'style'                 => 'default',
 				'label_placement'       => 'top',
@@ -532,6 +618,7 @@ class PostType {
 
 	/**
 	 * ACF Shortcode
+	 *
 	 * This loads the metabox related to the shortcode.
 	 *
 	 * @return void
@@ -588,6 +675,7 @@ class PostType {
 
 	/**
 	 * Custom admin columns
+	 *
 	 * This method will load the admin columns of the custom post type
 	 *
 	 * @return void
