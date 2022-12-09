@@ -34,8 +34,8 @@ class Video {
 				$video_data = [
 					'id'             => $post_ID,
 					'box'            => [
-						'width'  => $this->helper->get_group_field( 'box_group', 'width', $post_ID ),
-						'height' => $this->helper->get_group_field( 'box_group', 'height', $post_ID ),
+						'width'  => $this->helper->get_group_field( 'video_box_size', 'width', $post_ID ),
+						'height' => $this->helper->get_group_field( 'video_box_size', 'height', $post_ID ),
 
 					],
 					'link'           => get_field( 'video_link', $post_ID ),
