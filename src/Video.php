@@ -2,7 +2,13 @@
 namespace Afca\EmbedVideoPlayer;
 
 class Video {
+	//Helper
 	private $helper;
+	//Colors
+	private $color_primary;
+	private $color_secundary;
+	//Options
+	private $options_style;
 
 	public function __construct() {
 		$this->helper = new Helper();
@@ -26,16 +32,26 @@ class Video {
 				$post_ID = $atts['id'];
 
 				$video_data = [
-					'id'    => $post_ID,
-					'link'  => get_field( 'video_link', $post_ID ),
-					'color' => [
-						'primary'   => $this->helper->get_group_field( 'appearance_group', 'primary_color', $post_ID ),
-						'secondary' => $this->helper->get_group_field( 'appearance_group', 'second_color', $post_ID ),
-					],
-					'box'   => [
+					'id'             => $post_ID,
+					'box'            => [
 						'width'  => $this->helper->get_group_field( 'box_group', 'width', $post_ID ),
 						'height' => $this->helper->get_group_field( 'box_group', 'height', $post_ID ),
 
+					],
+					'link'           => get_field( 'video_link', $post_ID ),
+					'configurations' => [
+						'colors'   => [
+							'primary'   => $this->helper->get_group_field( 'appearance_group', 'primary_color', $post_ID ),
+							'secondary' => $this->helper->get_group_field( 'appearance_group', 'second_color', $post_ID ),
+						],
+						'autoplay' => $this->helper->get_group_field( 'controls_group', 'autoplay', $post_ID ),
+						'preload'  => $this->helper->get_group_field( 'controls_group', 'preload', $post_ID ),
+						'controls' => $this->helper->get_group_field( 'controls_group', 'controls', $post_ID ),
+						'options'  => $this->helper->get_group_field( 'controls_group', 'controls_options', $post_ID ),
+						'type'     => [
+							'techOrder' => 'youtube',
+							'type'      => 'video/youtube',
+						],
 					],
 				];
 
@@ -49,7 +65,6 @@ class Video {
 				}
 
 				return $this->render_video( $video_data );
-
 			}
 		);
 	}
@@ -70,25 +85,104 @@ class Video {
 			);
 		}
 
+		//Load features
+		$features = '';
+		if ( isset( $data['configurations']['autoplay'] ) && $data['configurations']['autoplay'] !== false ) {
+			$features .= 'autoplay ';
+		}
+
+		if ( isset( $data['configurations']['preload'] ) && $data['configurations']['preload'] !== false ) {
+			$features .= 'preload="auto" ';
+		}
+
+		if ( isset( $data['configurations']['controls'] ) && $data['configurations']['controls'] !== false ) {
+			$features .= 'controls ';
+		}
+
+		//Colors
+		$this->color_primary   = $data['configurations']['colors']['primary'];
+		$this->color_secundary = $data['configurations']['colors']['secondary'];
+
+		//Load apperance
+		//primary color and secondary color
+		add_action(
+			'wp_head',
+			function() {
+				printf(
+					'<style>
+					.vjs-big-play-button, .vjs-control-bar {
+						background-color: %1$s !important;
+					}
+
+					.vjs-big-play-button span, .vjs-control-bar span {
+						color: %2$s;
+					}
+				</style>',
+					esc_html( $this->color_primary ),
+					esc_html( $this->color_secundary ),
+				);
+			}
+		);
+
+		//Load controls
+		$options = $data['configurations']['options'];
+		if ( is_array( $options ) && count( $options ) > 0 ) {
+			if ( array_search( 'big_play_button', $options, true ) === false ) {
+				$this->options_style .= '.vjs-big-play-button{ display: none !important; }' . "\n";
+			}
+
+			if ( array_search( 'volume_mute', $options, true ) === false ) {
+				$this->options_style .= '.vjs-volume-panel{ display: none !important; }' . "\n";
+			}
+
+			if ( array_search( 'current_time_total', $options, true ) === false ) {
+				$this->options_style .= '.vjs-remaining-time{ display: none !important; }' . "\n";
+			}
+
+			if ( array_search( 'fullscreen', $options, true ) === false ) {
+				$this->options_style .= '.vjs-fullscreen-control{ display: none !important;}' . "\n";
+			}
+
+			if ( array_search( 'progress_bar', $options, true ) == false ) {
+				$this->options_style .= '.vjs-progress-control{ display: none !important; }' . "\n";
+			}
+
+			if ( ! empty( $this->options_style ) ) {
+				add_action(
+					'wp_head',
+					function() {
+						printf(
+							'<style>
+								%1$s
+							</style>',
+							esc_html( $this->options_style )
+						);
+					}
+				);
+			}
+		}
+
+		//Return video player html
 		return sprintf(
 			'<video
 				id="%1$s"
-				class="video-js vjs-default-skin vjs-big-play-centered vjs-show-big-play-button-on-pause"
-				width="%2$s" height="%3$s"
-				preload="auto"
-				playsinline
-				data-setup=\'{ "techOrder": ["%4$s"], "sources": [{ "type": "%5$s", "src": "%6$s"}]%7$s}\'
-				controls
-			  >
-			  </video>
-			  ',
+				class="%2$s"
+				width="%3$s"
+				height="%4$s"
+				data-setup=\'{ "techOrder": ["%5$s"], "sources": [{ "type": "%6$s", "src": "%7$s"}]%8$s}\'
+				%9$s
+			>
+			</video>
+			',
 			$data['id'],
+			'video-js vjs-default-skin vjs-big-play-centered vjs-show-big-play-button-on-pause',
 			$data['box']['width'],
 			$data['box']['height'],
-			'youtube',
-			'video/youtube',
+			$data['configurations']['type']['techOrder'],
+			$data['configurations']['type']['type'],
 			$data['link'],
 			$thumbnail,
+			$features,
 		);
 	}
 }
