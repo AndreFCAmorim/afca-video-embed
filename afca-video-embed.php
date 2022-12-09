@@ -36,6 +36,40 @@ function frontend_style() {
 	wp_enqueue_style( 'frontend-style', plugin_dir_url( __FILE__ ) . 'assets/css/frontend.min.css', [], AFCA_VE_PLUGIN_VERSION );
 }
 
+//Enqueue Frontend Script
+add_action( 'wp_enqueue_scripts', 'frontend_scripts' );
+function frontend_scripts() {
+	/*
+	 * Video Statistics
+	 */
+	//Register js file
+	wp_register_script(
+		'afca_ve_statistics_script',
+		plugin_dir_url( __FILE__ ) . 'assets/js/statistics.js',
+		[ 'jquery' ],
+		AFCA_VE_PLUGIN_VERSION,
+		true
+	);
+	wp_enqueue_script( 'afca_ve_statistics_script' );
+
+	//Pass variables to js
+	wp_localize_script(
+		'afca_ve_statistics_script',
+		'ajaxParams',
+		[
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+		]
+	);
+}
+
+/*
+ * Register Ajax Functions
+ */
+use Afca\EmbedVideoPlayer\Ajax;
+$ajax_class = new Ajax();
+$ajax_class->register_all();
+
+
 /*
  * Register Post Types
  */
@@ -60,7 +94,7 @@ add_action( 'save_post_' . AFCA_VE_PLUGIN_POST_TYPE, [ $shortcode_class, 'genera
  * Check if node modules folder exists
  */
 use Afca\EmbedVideoPlayer\Video;
-if ( is_dir( plugin_dir_path( __FILE__ ) . '/node_modules/video.js/dist' ) ) {
+if ( is_dir( plugin_dir_path( __FILE__ ) . '/node_modules/video.js/dist' ) && is_dir( plugin_dir_path( __FILE__ ) . '/node_modules/videojs-youtube/dist/' ) ) {
 	add_action( 'wp_enqueue_scripts', 'register_videojs_scripts' );
 	add_action( 'wp_enqueue_scripts', 'register_videojs_styles' );
 
@@ -89,6 +123,16 @@ function register_videojs_scripts() {
 		true
 	);
 	wp_enqueue_script( 'videojs_youtube_script' );
+
+	//VideoJS -> Vimeo
+	wp_register_script(
+		'videojs_vimeo_script',
+		plugin_dir_url( __FILE__ ) . 'node_modules/videojs-vimeo-tech/dist/Vimeo.min.js',
+		[ 'jquery' ],
+		'2.6.1',
+		true
+	);
+	wp_enqueue_script( 'videojs_vimeo_script' );
 }
 
 //Video JS :: Styles
