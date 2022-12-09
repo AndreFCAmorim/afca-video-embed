@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "video.js": "^7.20.3",
+    "videojs-vimeo-tech": "^1.0.0",
     "videojs-youtube": "^2.6.1"
   }
 }

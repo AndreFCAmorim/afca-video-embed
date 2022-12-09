@@ -31,6 +31,17 @@ class Video {
 
 				$post_ID = $atts['id'];
 
+				$link       = get_field( 'video_link', $post_ID );
+				$tech_order = '';
+				$type       = '';
+				if ( strpos( $link, 'youtube' ) ) {
+					$tech_order = 'youtube';
+					$type       = 'video/youtube';
+				} elseif ( strpos( $link, 'vimeo' ) ) {
+					$tech_order = 'Vimeo';
+					$type       = 'video/vimeo';
+				}
+
 				$video_data = [
 					'id'             => $post_ID,
 					'box'            => [
@@ -38,7 +49,7 @@ class Video {
 						'height' => $this->helper->get_group_field( 'video_box_size', 'height', $post_ID ),
 
 					],
-					'link'           => get_field( 'video_link', $post_ID ),
+					'link'           => $link,
 					'configurations' => [
 						'colors'   => [
 							'primary'   => $this->helper->get_group_field( 'appearance_group', 'primary_color', $post_ID ),
@@ -49,8 +60,8 @@ class Video {
 						'controls' => $this->helper->get_group_field( 'controls_group', 'controls', $post_ID ),
 						'options'  => $this->helper->get_group_field( 'controls_group', 'controls_options', $post_ID ),
 						'type'     => [
-							'techOrder' => 'youtube',
-							'type'      => 'video/youtube',
+							'techOrder' => $tech_order,
+							'type'      => $type,
 						],
 					],
 				];
