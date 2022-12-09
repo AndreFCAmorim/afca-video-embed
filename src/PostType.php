@@ -683,20 +683,45 @@ class PostType {
 		add_filter(
 			'manage_afca-video-embed_posts_columns',
 			function( $columns ) {
-				return array_merge( $columns, [ 'shortcode' => __( 'Shortcode', 'afca-embed-video-player' ) ] );
+				return array_merge(
+					$columns,
+					[
+						'shortcode'   => __( 'Shortcode', 'afca-embed-video-player' ),
+						'impressions' => __( 'Impressions', 'afca-embed-video-player' ),
+						'clicks'      => __( 'Clicks', 'afca-embed-video-player' ),
+					]
+				);
 			}
 		);
 
 		add_action(
 			'manage_afca-video-embed_posts_custom_column',
 			function( $column_key, $post_id ) {
-				if ( $column_key == 'shortcode' ) {
-					$video_link = get_field( 'shortcode', $post_id );
-					if ( $video_link ) {
-						echo esc_html( $video_link );
-					} else {
-						echo '-';
-					}
+				switch ( $column_key ) {
+					case 'shortcode':
+						$shortcode = get_field( 'shortcode', $post_id );
+						if ( $shortcode ) {
+							echo esc_html( $shortcode );
+						} else {
+							echo '-';
+						}
+						break;
+					case 'impressions':
+						$impressions = get_field( 'impressions', $post_id );
+						if ( $impressions ) {
+							echo esc_html( $impressions );
+						} else {
+							echo '-';
+						}
+						break;
+					case 'clicks':
+						$clicks = get_field( 'clicks', $post_id );
+						if ( $clicks ) {
+							echo esc_html( $clicks );
+						} else {
+							echo '-';
+						}
+						break;
 				}
 			},
 			10,
