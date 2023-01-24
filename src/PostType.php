@@ -485,7 +485,7 @@ class PostType {
 							'class' => '',
 							'id'    => '',
 						],
-						'layout'            => 'block',
+						'layout'            => 'table',
 						'sub_fields'        => [
 							[
 								'key'               => 'field_638ce037a2e29',
