@@ -1,13 +1,20 @@
 <?php
-namespace Afca\EmbedVideoPlayer;
+namespace Afca\WP\Plugin\EmbedVideoPlayer;
 
 class ShortcodeGenerator {
+
+	// Variables
+	private $shortcode_code;
+
+	public function __construct( $code ) {
+		$this->shortcode_code = $code;
+	}
 
 	public function generator( $post_ID ) {
 		//Generator - generates a code
 		$generated = sprintf(
 			'[%1$s id=%2$d]',
-			AFCA_VE_PLUGIN_SHORTCODE,
+			$this->shortcode_code,
 			$post_ID
 		);
 

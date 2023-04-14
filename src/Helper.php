@@ -1,5 +1,5 @@
 <?php
-namespace Afca\EmbedVideoPlayer;
+namespace Afca\WP\Plugin\EmbedVideoPlayer;
 
 class Helper {
 

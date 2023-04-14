@@ -18,131 +18,73 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
 
-//Constants
-define( 'AFCA_VE_PLUGIN_VERSION', 1 );
-define( 'AFCA_VE_PLUGIN_FOLDER', 'afca-video-embed' );
-define( 'AFCA_VE_PLUGIN_POST_TYPE', 'afca-video-embed' );
-define( 'AFCA_VE_PLUGIN_SHORTCODE', 'show-embed-video' );
-
-//Enqueue Backend Style
-add_action( 'admin_enqueue_scripts', 'backend_style' );
-function backend_style() {
-	wp_enqueue_style( 'backend-style', plugin_dir_url( __FILE__ ) . 'assets/css/backend.min.css', [], AFCA_VE_PLUGIN_VERSION );
+/**
+ * Get plugin information
+ */
+if ( ! function_exists( 'get_plugin_data') ) {
+	require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 }
 
-//Enqueue Frontend Style
-add_action( 'wp_enqueue_scripts', 'frontend_style' );
-function frontend_style() {
-	wp_enqueue_style( 'frontend-style', plugin_dir_url( __FILE__ ) . 'assets/css/frontend.min.css', [], AFCA_VE_PLUGIN_VERSION );
-}
+$plugin_data    = get_plugin_data( __FILE__ );
+$plugin_version = $plugin_data['Version'];
 
-//Enqueue Frontend Script
-add_action( 'wp_enqueue_scripts', 'frontend_scripts' );
-function frontend_scripts() {
-	/*
-	 * Video Statistics
-	 */
-	//Register js file
-	wp_register_script(
-		'afca_ve_statistics_script',
-		plugin_dir_url( __FILE__ ) . 'assets/js/statistics.js',
-		[ 'jquery' ],
-		AFCA_VE_PLUGIN_VERSION,
-		true
-	);
-	wp_enqueue_script( 'afca_ve_statistics_script' );
-
-	//Pass variables to js
-	wp_localize_script(
-		'afca_ve_statistics_script',
-		'ajaxParams',
-		[
-			'ajax_url' => admin_url( 'admin-ajax.php' ),
-		]
-	);
-}
+/**
+ * Load assets
+ */
+use Afca\WP\Plugin\EmbedVideoPlayer\Assets;
+$assets = new Assets( $plugin_version );
 
 /*
  * Register Ajax Functions
  */
-use Afca\EmbedVideoPlayer\Ajax;
-$ajax_class = new Ajax();
-$ajax_class->register_all();
-
+use Afca\WP\Plugin\EmbedVideoPlayer\Ajax;
+$ajax = new Ajax();
 
 /*
- * Register Post Types
+ * Register Post Type
  */
-use Afca\EmbedVideoPlayer\PostType;
-$post_type_class = new PostType();
-add_action( 'init', [ $post_type_class, 'cptui_register_my_cpts_afca_video_embed' ] );
-add_action( 'init', [ $post_type_class, 'cptui_register_my_taxes_afca_video_type' ] );
+use Afca\WP\Plugin\EmbedVideoPlayer\PostTypeBuilder;
+$cpt_singular_name = 'afca-video-embed';
+$embed_video_cpt   = new PostTypeBuilder(
+	'Embed Video',
+	'Embed Videos',
+	$cpt_singular_name,
+	true,
+	6,
+	'dashicons-format-video'
+);
 
-/*
+/**
  * Register ACF Meta fields
  */
-$post_type_class->acf_meta_fields();
+use Afca\WP\Plugin\EmbedVideoPlayer\MetaFields;
+new MetaFields(
+	plugin_dir_path( __FILE__ ) . '/includes/acf/',
+	plugin_dir_url( __FILE__ ) . '/includes/acf/',
+);
 
 /*
  * Generate a shortcode on save post
  */
-use Afca\EmbedVideoPlayer\ShortcodeGenerator;
-$shortcode_class = new ShortcodeGenerator();
-add_action( 'save_post_' . AFCA_VE_PLUGIN_POST_TYPE, [ $shortcode_class, 'generator' ], 10, 1 );
+use Afca\WP\Plugin\EmbedVideoPlayer\ShortcodeGenerator;
+$shortcode = new ShortcodeGenerator( 'show-embed-video' );
+add_action( 'save_post_' . $cpt_singular_name, [ $shortcode, 'generator' ], 10, 1 );
 
 /*
  * Check if node modules folder exists
  */
-use Afca\EmbedVideoPlayer\Video;
-if ( is_dir( plugin_dir_path( __FILE__ ) . '/node_modules/video.js/dist' ) && is_dir( plugin_dir_path( __FILE__ ) . '/node_modules/videojs-youtube/dist/' ) ) {
-	add_action( 'wp_enqueue_scripts', 'register_videojs_scripts' );
-	add_action( 'wp_enqueue_scripts', 'register_videojs_styles' );
+use Afca\WP\Plugin\EmbedVideoPlayer\Video;
+if ( is_dir( dirname( __FILE__ ) . '/node_modules/video.js/dist' ) && is_dir( dirname( __FILE__ ) . '/node_modules/videojs-youtube/dist/' ) ) {
+	// Load dependencies
+	$assets->load_video_dependencies(
+		[
+			'videojs'         => '7.20.3',
+			'videojs_youtube' => '2.6.1',
+			'videojs_vimeo'   => '2.6.1',
+		]
+	);
 
-	$video_class = new Video();
+	// Register shortcode
+	$video_class = new Video( 'show-embed-video');
 	$video_class->register_shortcode();
-}
-
-//Video JS :: Scripts
-function register_videojs_scripts() {
-	//Video.JS
-	wp_register_script(
-		'videojs_script',
-		plugin_dir_url( __FILE__ ) . 'node_modules/video.js/dist/video.min.js',
-		[ 'jquery' ],
-		'7.20.3',
-		true
-	);
-	wp_enqueue_script( 'videojs_script' );
-
-	//VideoJS -> Youtube
-	wp_register_script(
-		'videojs_youtube_script',
-		plugin_dir_url( __FILE__ ) . 'node_modules/videojs-youtube/dist/Youtube.min.js',
-		[ 'jquery' ],
-		'2.6.1',
-		true
-	);
-	wp_enqueue_script( 'videojs_youtube_script' );
-
-	//VideoJS -> Vimeo
-	wp_register_script(
-		'videojs_vimeo_script',
-		plugin_dir_url( __FILE__ ) . 'node_modules/videojs-vimeo-tech/dist/Vimeo.min.js',
-		[ 'jquery' ],
-		'2.6.1',
-		true
-	);
-	wp_enqueue_script( 'videojs_vimeo_script' );
-}
-
-//Video JS :: Styles
-function register_videojs_styles() {
-	wp_register_style(
-		'videojs_style',
-		plugin_dir_url( __FILE__ ) . 'node_modules/video.js/dist/video-js.min.css',
-		[],
-		'7.20.3',
-		false
-	);
-	wp_enqueue_style( 'videojs_style' );
 }

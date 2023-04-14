@@ -1,24 +1,36 @@
 <?php
-namespace Afca\EmbedVideoPlayer;
+namespace Afca\WP\Plugin\EmbedVideoPlayer;
 
 class Video {
-	//Helper
+
+	// Variables
 	private $helper;
-	//Colors
 	private $color_primary;
 	private $color_secundary;
-	//Options
 	private $options_style;
+	private $shortcode_code;
 
-	public function __construct() {
-		$this->helper = new Helper();
+	/**
+	 * __construct
+	 *
+	 * @param  string $code The shortcode code.
+	 * @return void
+	 */
+	public function __construct( string $code ) {
+		$this->shortcode_code = $code;
+		$this->helper         = new Helper();
 	}
 
+	/**
+	 * Register the shortcode
+	 *
+	 * @return void
+	 */
 	public function register_shortcode() {
 		//Shortcode string
 		$shortcode = sprintf(
 			'%1$s',
-			AFCA_VE_PLUGIN_SHORTCODE,
+			$this->shortcode_code,
 		);
 
 		//Register the shortcode
