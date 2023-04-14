@@ -1,7 +1,25 @@
 {
+  "name": "afca-video-embed",
+  "version": "1.0.0",
+  "description": "Plugin for video embed",
+  "main": "index.js",
+  "devDependencies": {},
   "dependencies": {
     "video.js": "^7.20.3",
     "videojs-vimeo-tech": "^1.0.0",
     "videojs-youtube": "^2.6.1"
-  }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreFCAmorim/afca-video-embed.git"
+  },
+  "author": "André Amorim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndreFCAmorim/afca-video-embed/issues"
+  },
+  "homepage": "https://github.com/AndreFCAmorim/afca-video-embed#readme"
 }
