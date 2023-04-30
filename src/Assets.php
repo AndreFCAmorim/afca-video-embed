@@ -64,7 +64,7 @@ class Assets {
 	public function enqueue_videojs() {
 		wp_enqueue_script(
 			'videojs_script',
-			dirname( dirname( __FILE__ ) ) . '/node_modules/video.js/dist/video.min.js',
+			plugin_dir_url( __DIR__ ) . 'node_modules/video.js/dist/video.min.js',
 			[ 'jquery' ],
 			$this->dep_versions['videojs'],
 			true
@@ -72,7 +72,7 @@ class Assets {
 
 		wp_enqueue_style(
 			'videojs_style',
-			dirname( dirname( __FILE__ ) ) . '/node_modules/video.js/dist/video-js.min.css',
+			plugin_dir_url( __DIR__ ) . 'node_modules/video.js/dist/video-js.min.css',
 			[],
 			$this->dep_versions['videojs'],
 			false
@@ -83,7 +83,7 @@ class Assets {
 	public function enqueue_videojs_youtube() {
 		wp_enqueue_script(
 			'videojs_youtube_script',
-			dirname( dirname( __FILE__ ) ) . '/node_modules/videojs-youtube/dist/Youtube.min.js',
+			plugin_dir_url( __DIR__ ) . '/node_modules/videojs-youtube/dist/Youtube.min.js',
 			[ 'jquery' ],
 			$this->dep_versions['videojs_youtube'],
 			true
@@ -94,7 +94,7 @@ class Assets {
 	public function enqueue_videojs_vimeo() {
 		wp_enqueue_script(
 			'videojs_vimeo_script',
-			dirname( dirname( __FILE__ ) ) . '/node_modules/videojs-vimeo-tech/dist/Vimeo.min.js',
+			plugin_dir_url( __DIR__ ) . '/node_modules/videojs-vimeo-tech/dist/Vimeo.min.js',
 			[ 'jquery' ],
 			$this->dep_versions['videojs_vimeo'],
 			true
